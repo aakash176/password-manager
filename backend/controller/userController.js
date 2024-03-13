@@ -1,16 +1,16 @@
 const account = require("../model/accountSchema")
 const User = require("../model/userSchema")
 
-const loginRoute = async(req,res) => {
-    try{
+// const loginRoute = async(req,res) => {
+//     try{
         
-        let accounts = await account.find({userId: req.body.userId})
-        console.log(accounts)
-    }
-    catch(err){
-        console.error(err)
-    }
-}
+//         let accounts = await account.find({userId: req.body.userId})
+//         console.log(accounts)
+//     }
+//     catch(err){
+//         console.error(err)
+//     }
+// }
 
 
 const registerRoute = async(req,res) => {
@@ -25,4 +25,4 @@ const registerRoute = async(req,res) => {
     }
 }
 
-module.exports = {loginRoute, registerRoute}
+module.exports = { registerRoute}

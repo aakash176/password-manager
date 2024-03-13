@@ -1,7 +1,10 @@
 import { SignUp } from '@clerk/clerk-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Signup = () => {
+  useEffect(() => {
+    localStorage.clear()
+  },[])
   return (
     <SignUp path='/sign-up' />
   )

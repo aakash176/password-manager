@@ -6,15 +6,28 @@ const homepage = (req,res) => {
 }
 const addAccount = async(req,res) => {
     try {
+        
+        let data = []
         const userInfo = await User.findOne({userId:req.body.userId})
         let hashedPassword = encrypt(req.body.password)
         console.log(hashedPassword)
-        const response = await account.create({
+        await account.create({
             accountName:req.body.accountName,
             password:hashedPassword,
             userId:userInfo._id
         })
-        res.status(201).json({message:"Account saved sucessfully"})
+
+        const response = await account.find({userId:userInfo._id})
+        response.forEach((d) => {
+            let originalPassword = decrypt(d.password)
+            let obj = {
+                accountName: d.accountName,
+                password: originalPassword
+            }
+            data.push(obj)
+        })
+
+        res.status(200).send(data)
     } catch (error) {
         console.log(error)
     }
@@ -24,6 +37,7 @@ const getPassword = async(req,res) => {
     try {
         let data = []
         let id = req.body.userId
+        console.log(id)
         const user = await User.findOne({userId:id})
         const response = await account.find({userId:user._id})
         response.forEach((d) => {
