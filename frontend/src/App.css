@@ -48,7 +48,11 @@
 
 
 
-
+.home{
+  background-image: url(../src/assets/bg.jpg);
+  overflow: hidden;
+  
+}
 /* CSS */
 .btns {
     appearance: none;

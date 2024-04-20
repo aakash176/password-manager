@@ -1,15 +1,8 @@
-import React, { useRef, useState } from 'react'
-import TextField from '@mui/material/TextField';
-import axios from 'axios';
-import { api_base_url } from '../../config';
-import { useUser } from '@clerk/clerk-react';
-import { variants } from '../constant/variants';
-import Alert from './Alert';
-// import { Alert } from '@mui/material';
-const Addaccount = () => {
-    const user = useUser()
-    const accountName = useRef(null)
-    const password = useRef(null)
+import React from 'react'
+
+const Edit = ({ accountName,password,id }) => {
+    const accountName = useRef(acc.accountName)
+    const password = useRef(acc.password)
     const [accountError, setAccountError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [sucess, setSucess] = useState(false)
@@ -36,7 +29,7 @@ const Addaccount = () => {
         }
         if (typeof accountName.current == 'string' && typeof password.current == 'string' && accountName.current.length > 0 && password.current.length > 0) {
             try {
-                
+
                 let obj = { "userId": user?.user?.id, "accountName": accountName.current, "password": password.current }
                 console.log(obj);
                 const res = await axios.post(`${api_base_url}/account/add-account`, obj)
@@ -64,13 +57,15 @@ const Addaccount = () => {
                     fail && <Alert variant={variants.failure} setDisplay={setFail} />
                 }
             </div>
+
             <div className='flex gap-10 justify-center items-center flex-col mt-10 max-sm:mt-20'>
-                <TextField error={accountError ? true : false} value={accountName.current} helperText={accountError ? "Please provide account name" : ""} className='w-[20%] max-md:w-[40%] max-sm:w-[80%]' id="outlined-basic" label="Account Name" variant="outlined" onChange={handleAccountChange} />
-                <TextField error={passwordError ? true : false} value={password.current} helperText={passwordError ? "please provide password" : ""} className='w-[20%] max-sm:w-[80%] max-md:w-[40%]' id="outlined-basic" label="Password" variant="outlined" onChange={handlePasswordChange} />
-                <button className=" text-white bg-rose-800 p-3 m-3 rounded-2xl max-sm:w-[300px] md:w-[200px] custom-btn" role="button" onClick={handleSumbit}>Save</button>
+                <TextField error={accountError ? true : false} ref={accountName} helperText={accountError ? "Please provide account name" : ""} className='w-[20%] max-md:w-[40%] max-sm:w-[80%]' id="outlined-basic" label="Account Name" variant="outlined" onChange={handleAccountChange} />
+                <TextField error={passwordError ? true : false} ref={password} helperText={passwordError ? "please provide password" : ""} className='w-[20%] max-sm:w-[80%] max-md:w-[40%]' id="outlined-basic" label="Password" variant="outlined" onChange={handlePasswordChange} />
+                <button className=" text-white bg-rose-800 p-3 m-3 rounded-2xl max-sm:w-[300px] md:w-[200px] custom-btn" role="button" onClick={handleSumbit}>Update</button>
             </div>
         </>
+
     )
 }
 
-export default Addaccount
+export default Edit

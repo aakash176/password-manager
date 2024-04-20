@@ -28,7 +28,7 @@ const Home = () => {
     navigate('/add-account')
   }
   return (
-    <div className='bg-black w-full h-[100vh]'>
+    <div className='bg-black w-full h-[100vh] home'>
       <SignOutButton className='text-white bg-rose-800 p-3 m-3 rounded-2xl max-sm:w-[100px] custom-btn' signOutCallback={() => navigate('/')}  />
       <div className='flex justify-center items-center min-h-screen gap-10 w-full h-[50%]'>
         <button className=" text-white bg-rose-800 p-3 m-3 rounded-2xl max-sm:w-[300px] custom-btn" role="button" onClick={handleAdd}>Add account</button>
